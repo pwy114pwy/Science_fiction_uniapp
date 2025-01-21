@@ -1,0 +1,29 @@
+
+.user-center[data-v-0f7520f0] {
+		padding: 20px;
+}
+.user-info[data-v-0f7520f0] {
+		display: flex;
+		align-items: center;
+		margin-bottom: 20px;
+}
+.avatar[data-v-0f7520f0] {
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		margin-right: 15px;
+}
+.user-details[data-v-0f7520f0] {
+		flex: 1;
+}
+.function-list[data-v-0f7520f0] {
+		display: flex;
+		flex-direction: column;
+}
+.function-item[data-v-0f7520f0] {
+		padding: 10px 0;
+		border-bottom: 1px solid #eee;
+}
+.function-item[data-v-0f7520f0]:last-child {
+		border-bottom: none;
+}
