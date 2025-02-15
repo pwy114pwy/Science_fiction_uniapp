@@ -247,8 +247,11 @@
 		return response.data;
 	}
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 7c9b1564842d047087a134d15ff8de9c9f5dc7a8
 	async function fetchRelatedCharacters(id) {
 		// 假设有一个API可以获取与特定角色相关的其他角色
 		const response = await uni.request({
