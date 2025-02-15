@@ -1,0 +1,131 @@
+{
+	"pages": [{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		},
+		{
+			"path": "pages/Illustrated/Illustrated",
+			"style": {
+				"navigationBarTitleText": "Illustrated"
+			}
+		},
+		{
+			"path": "pages/user/user",
+			"style": {
+				"navigationBarTitleText": "user"
+			}
+		},
+		{
+			"path" : "pages/detail/detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "detail"
+			}
+		},
+		{
+			"path" : "pages/search/search",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/login/login",
+			"style" : 
+			{
+				"navigationBarTitleText" : "login"
+			}
+		},
+		{
+			"path" : "pages/register/register",
+			"style" : 
+			{
+				"navigationBarTitleText" : "register"
+			}
+		},
+		{
+			"path" : "pages/collect/collect",
+			"style" : 
+			{
+				"navigationBarTitleText" : "collect"
+			}
+		},
+		{
+			"path" : "pages/history/history",
+			"style" : 
+			{
+				"navigationBarTitleText" : "history"
+			}
+		},
+		{
+			"path" : "pages/profile/profile",
+			"style" : 
+			{
+				"navigationBarTitleText" : "profile"
+			}
+		},
+		{
+			"path" : "pages/Illustrated_detail/Illustrated_detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "Illustrated_detail"
+			}
+		},
+		{
+			"path" : "pages/character_detail/character_detail",
+			"style" : 
+			{
+				"navigationBarTitleText" : "character_detail"
+			}
+		},
+		{
+			"path" : "pages/test/test",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/science_rate/science_rate",
+			"style" : 
+			{
+				"navigationBarTitleText" : "science_rate"
+			}
+		},
+		{
+			"path" : "pages/discussion/discussion",
+			"style" : 
+			{
+				"navigationBarTitleText" : "discussion"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "科幻小说图鉴",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/Illustrated/Illustrated",
+				"text": "图鉴"
+			},
+			{
+				"pagePath": "pages/user/user",
+				"text": "个人中心"
+			}
+		]
+	}
+}

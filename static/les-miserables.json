@@ -1,0 +1,17 @@
+{
+  "nodes": [
+    { "id": "1", "category": 0, "symbolSize": 50, "name": "Jean Valjean" },
+    { "id": "2", "category": 1, "symbolSize": 40, "name": "Javert" },
+    { "id": "3", "category": 0, "symbolSize": 40, "name": "Cosette" },
+    { "id": "4", "category": 1, "symbolSize": 40, "name": "Fantine" }
+  ],
+  "links": [
+    { "source": "1", "target": "2" },
+    { "source": "1", "target": "3" },
+    { "source": "3", "target": "4" }
+  ],
+  "categories": [
+    { "name": "Main Characters" },
+    { "name": "Antagonists" }
+  ]
+}

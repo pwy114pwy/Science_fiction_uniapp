@@ -1,0 +1,15 @@
+{
+  "hash": "7591256f",
+  "configHash": "0101bae4",
+  "lockfileHash": "bce71427",
+  "browserHash": "886c5d27",
+  "optimized": {
+    "echarts": {
+      "src": "../../../../../node_modules/echarts/index.js",
+      "file": "echarts.js",
+      "fileHash": "052c188e",
+      "needsInterop": false
+    }
+  },
+  "chunks": {}
+}

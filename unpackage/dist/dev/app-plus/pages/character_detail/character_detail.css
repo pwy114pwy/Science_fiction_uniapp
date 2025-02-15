@@ -1,0 +1,200 @@
+
+.lime-echart[data-v-e9a2d99c] {
+	position: relative;
+
+	width: 100%;
+	height: 100%;
+}
+.lime-echart__canvas[data-v-e9a2d99c] {
+
+	width: 100%;
+	height: 100%;
+}
+.lime-echart__mask[data-v-e9a2d99c] {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	z-index: 1;
+}
+
+
+
+.related-list[data-v-f79b17b5] {
+		display: flex;
+		white-space: nowrap;
+		overflow-x: auto;
+		padding-bottom: 10px;
+}
+.related-card[data-v-f79b17b5] {
+		flex-shrink: 0;
+		width: 150px;
+		background-color: #ffffff;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		margin-right: 10px;
+		text-align: center;
+		transition: transform 0.3s ease;
+		cursor: pointer;
+		display: inline-block;
+}
+.related-card[data-v-f79b17b5]:hover {
+		transform: scale(1.05);
+}
+.related-image[data-v-f79b17b5] {
+		width: 100%;
+		height: 150px;
+		object-fit: cover;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+}
+.related-name[data-v-f79b17b5] {
+		font-size: 16px;
+		font-weight: bold;
+		color: #333333;
+		padding: 10px;
+}
+.related-description[data-v-f79b17b5] {
+		font-size: 14px;
+		color: #666666;
+		padding: 0 10px 10px;
+		line-height: 1.2;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		/* 控制显示行数 */
+		-webkit-box-orient: vertical;
+}
+.related-image[data-v-f79b17b5] {
+		width: 100%;
+		height: 150px;
+		object-fit: cover;
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+}
+.contribute_title[data-v-f79b17b5] {
+		font-size: 20px;
+}
+.contribute_detail[data-v-f79b17b5] {
+		/* margin-left: 10px; */
+		color: #666666;
+}
+.taglist[data-v-f79b17b5] {
+		display: flex;
+		justify-content: space-around;
+}
+.tag[data-v-f79b17b5] {
+		background-color: aqua;
+		/* margin-left: 5px; */
+		padding: 5px;
+		border-radius: 20px;
+}
+.chart-wrapper[data-v-f79b17b5] {
+		width: 210px;
+		height: 210px;
+		/* 明确指定高度 */
+		/* background-color: #ffffff; */
+		/* margin-bottom: 5px; */
+		/* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+}
+.detail-container[data-v-f79b17b5] {
+		padding: 20px;
+		background-color: #f9f9f9;
+}
+.header[data-v-f79b17b5] {
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin-bottom: 20px;
+}
+.role-image[data-v-f79b17b5] {
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		margin-right: 20px;
+}
+.title[data-v-f79b17b5] {
+		font-size: 24px;
+		font-weight: bold;
+		color: #333333;
+}
+.info-section[data-v-f79b17b5] {
+		margin-bottom: 20px;
+		padding: 15px;
+		background-color: #ffffff;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.section-title[data-v-f79b17b5] {
+		font-size: 18px;
+		font-weight: bold;
+		color: #333333;
+		margin-bottom: 10px;
+}
+.description[data-v-f79b17b5],
+	.features[data-v-f79b17b5],
+	.background-story[data-v-f79b17b5],
+	.famous-quote[data-v-f79b17b5] {
+		font-size: 16px;
+		color: #666666;
+		line-height: 1.5;
+}
+.related-list[data-v-f79b17b5] {
+		white-space: nowrap;
+}
+.related-item[data-v-f79b17b5] {
+		display: inline-block;
+		margin-right: 10px;
+}
+.related-image[data-v-f79b17b5] {
+		width: 80px;
+		height: 80px;
+		border-radius: 50%;
+		margin-bottom: 5px;
+}
+.related-name[data-v-f79b17b5] {
+		font-size: 14px;
+		text-align: center;
+		color: #333333;
+}
+
+	/* 引入新的样式 */
+.quotes[data-v-f79b17b5] {
+		background-color: #f0f8ff;
+		/* 轻微的背景色变化 */
+		padding: 20px;
+		border-radius: 8px;
+}
+.quotes-list[data-v-f79b17b5] {
+		margin-top: 10px;
+}
+.quote-item[data-v-f79b17b5] {
+		display: flex;
+		align-items: center;
+		margin-bottom: 15px;
+		padding-left: 10px;
+		position: relative;
+}
+.quote-symbol[data-v-f79b17b5] {
+		font-size: 24px;
+		color: darkorange;
+		margin-right: 8px;
+}
+.quote-text[data-v-f79b17b5] {
+		font-size: 16px;
+		line-height: 1.5;
+		color: #333;
+}
+.quote-item[data-v-f79b17b5]::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		width: 3px;
+		height: 70%;
+		background-color: #dcdcdc;
+		border-radius: 2px;
+}

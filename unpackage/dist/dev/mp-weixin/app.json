@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/Illustrated/Illustrated",
+    "pages/user/user",
+    "pages/detail/detail",
+    "pages/search/search",
+    "pages/login/login",
+    "pages/register/register",
+    "pages/collect/collect",
+    "pages/history/history",
+    "pages/profile/profile",
+    "pages/Illustrated_detail/Illustrated_detail",
+    "pages/character_detail/character_detail",
+    "pages/test/test",
+    "pages/science_rate/science_rate",
+    "pages/discussion/discussion"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "科幻小说图鉴",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#3cc51f",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/Illustrated/Illustrated",
+        "text": "图鉴"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "usingComponents": {}
+}
