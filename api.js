@@ -91,3 +91,12 @@ export const Add_Discussion = `${BASE_URL}/addDiscussion`;
 
 //删除讨论的api
 export const Delete_Discussion = `${BASE_URL}/deleteDiscussion`;
+
+//智能推荐的api - 基于用户阅读历史
+export const Get_AI_Recommendations = `${BASE_URL}/ai/recommendations`;
+
+//AI生成小说简介的api
+export const Get_AI_Book_Summary = `${BASE_URL}/ai/book-summary`;
+
+//AI角色对话的api
+export const Post_AI_Character_Conversation = `${BASE_URL}/ai/character-chat`;

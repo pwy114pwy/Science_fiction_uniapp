@@ -1,18 +1,19 @@
 <template>
+  <button @click="get_ai_recommendations">AI生成小说简介</button>
   <view class="container">
     <!-- 搜索框 -->
     <view class="search-bar">
       <input type="text" placeholder="搜索小说" v-model="searchText" class="search-input" />
       <button @click="searchNovel" class="search-btn">搜索</button>
     </view>
-    
+
     <!-- 轮播图 -->
     <swiper class="swiper-box" :indicator-dots="true" :autoplay="true" interval="3000" duration="1000" circular="true">
       <swiper-item v-for="(item, index) in swiperList" :key="index">
         <image :src="item.Img_Url" class="swiper-img" @click="goToDetail(item)" />
       </swiper-item>
     </swiper>
-    
+
     <!-- 小说主题分类 -->
     <view class="genre-list">
       <view class="section-title">小说主题分类</view>
@@ -45,8 +46,31 @@
       </scroll-view>
     </view>
 
+    <!-- AI智能推荐 -->
+    <view class="recommend-section ai-recommend">
+      <view class="section-title">
+        <text>AI智能推荐</text>
+        <uni-icons type="sparkles" size="20" color="#ff6b6b" />
+      </view>
+      <view v-if="isLoggedIn && aiRecommendations.length > 0">
+        <scroll-view scroll-x class="book-list">
+          <view class="book-item" v-for="(item, index) in aiRecommendations" :key="index" @click="goToDetail(item)">
+            <image :src="item.Img_Url" mode="aspectFill" class="book-image" />
+            <p class="book-name">{{ item.Book_Name }}</p>
+          </view>
+        </scroll-view>
+      </view>
+      <view v-else-if="isLoggedIn" class="no-recommendations">
+        <text>暂无推荐内容</text>
+      </view>
+      <view v-else class="no-recommendations">
+        <text>登录后可查看个性化推荐</text>
+        <button @click="handleLogin" class="login-btn">立即登录</button>
+      </view>
+    </view>
+
     <!-- 底部TabBar -->
-<!--    <view class="tabbar">
+    <!--    <view class="tabbar">
       <navigator url="/pages/index/index" hover-class="navigator-hover" @click="switchTab('/pages/index/index')">
         <text>首页</text>
       </navigator>
@@ -62,7 +86,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { Get_Swiper,Get_All_Books } from '@/api';
+import { Get_Swiper, Get_All_Books, Get_AI_Recommendations } from '@/api';
 // import { uni } from '@dcloudio/uni-app';
 
 let searchText = ref('');
@@ -73,6 +97,9 @@ let AllBooks = ref([]);
 let classicBooks = ref([]);
 let hotBooks = ref([]);
 let Booktopic = ref([]);
+let aiRecommendations = ref([]);
+let isLoggedIn = ref(false);
+let user = ref({});
 
 let tags = ref([
   { name: '太空探险' },
@@ -121,6 +148,44 @@ async function get_books_img() {
   }
 }
 
+// 获取AI推荐的书籍
+async function get_ai_recommendations() {
+  try {
+    // 检查用户是否已登录
+    if (uni.getStorageSync('token')) {
+      isLoggedIn.value = true;
+      user.value = JSON.parse(uni.getStorageSync('userInfo'));
+
+      const response = await uni.request({
+        url: Get_AI_Recommendations,
+        method: 'POST',
+        header: {
+          Authorization: `Bearer ${uni.getStorageSync('token')}`
+        },
+        data: {
+          user_name: user.value.username
+        },
+        timeout: 20000 // 设置20秒超时时间
+      });
+
+      if (response.statusCode === 200) {
+        aiRecommendations.value = response.data.recommendations;
+      } else {
+        console.error('Failed to get AI recommendations:', response.data);
+      }
+    }
+  } catch (error) {
+    console.error('Error fetching AI recommendations:', error);
+    // 如果是超时错误，不显示错误提示，只在控制台记录
+    if (error.errMsg && !error.errMsg.includes('timeout')) {
+      uni.showToast({
+        title: '获取AI推荐失败',
+        icon: 'none'
+      });
+    }
+  }
+}
+
 let searchNovel = () => {
   if (searchText.value) {
     uni.navigateTo({
@@ -135,9 +200,17 @@ let filterByTag = (tagName) => {
   });
 };
 
+// 跳转到登录页面
+let handleLogin = () => {
+  uni.navigateTo({
+    url: '/pages/login/login'
+  });
+};
+
 onMounted(() => {
   get_swpier_img();
   get_books_img();
+  get_ai_recommendations();
 });
 </script>
 
@@ -204,6 +277,30 @@ onMounted(() => {
   font-size: 36upx;
   color: #333;
   margin-bottom: 20upx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-recommend .section-title {
+  color: #ff6b6b;
+}
+
+.no-recommendations {
+  padding: 40upx;
+  text-align: center;
+  color: #999;
+  font-size: 28upx;
+}
+
+.login-btn {
+  margin-top: 20upx;
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10upx 30upx;
+  border-radius: 20upx;
+  font-size: 24upx;
 }
 
 .tag-list {
