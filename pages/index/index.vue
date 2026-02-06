@@ -1,10 +1,12 @@
 <template>
-  <button @click="get_ai_recommendations">AI生成小说简介</button>
+  <!-- <button @click="get_ai_recommendations" class="ai-gen-btn">AI生成小说简介</button> -->
   <view class="container">
     <!-- 搜索框 -->
     <view class="search-bar">
       <input type="text" placeholder="搜索小说" v-model="searchText" class="search-input" />
-      <button @click="searchNovel" class="search-btn">搜索</button>
+      <button @click="searchNovel" class="search-btn">
+        <uni-icons type="search" size="20" color="#ffffff"></uni-icons>
+      </button>
     </view>
 
     <!-- 轮播图 -->
@@ -16,7 +18,9 @@
 
     <!-- 小说主题分类 -->
     <view class="genre-list">
-      <view class="section-title">小说主题分类</view>
+      <view class="section-title">
+        <text>📚 小说主题分类</text>
+      </view>
       <view class="tag-list">
         <view class="tag-item" v-for="(item, index) in Booktopic.slice(0, 4)" :key="index" @click="filterByTag(item)">
           <text>{{ item }}</text>
@@ -26,7 +30,9 @@
 
     <!-- 经典作品推荐 -->
     <view class="recommend-section">
-      <view class="section-title">经典作品推荐</view>
+      <view class="section-title">
+        <text>🏆 经典作品推荐</text>
+      </view>
       <scroll-view scroll-x class="book-list">
         <view class="book-item" v-for="(item, index) in classicBooks" :key="index" @click="goToDetail(item)">
           <image :src="item.Img_Url" mode="aspectFill" class="book-image" />
@@ -37,7 +43,9 @@
 
     <!-- 热门作品推荐 -->
     <view class="recommend-section">
-      <view class="section-title">热门作品推荐</view>
+      <view class="section-title">
+        <text>🔥 热门作品推荐</text>
+      </view>
       <scroll-view scroll-x class="book-list">
         <view class="book-item" v-for="(item, index) in hotBooks" :key="index" @click="goToDetail(item)">
           <image :src="item.Img_Url" mode="aspectFill" class="book-image" />
@@ -49,8 +57,7 @@
     <!-- AI智能推荐 -->
     <view class="recommend-section ai-recommend">
       <view class="section-title">
-        <text>AI智能推荐</text>
-        <uni-icons type="sparkles" size="20" color="#ff6b6b" />
+        <text>✨ AI智能推荐</text>
       </view>
       <view v-if="isLoggedIn && aiRecommendations.length > 0">
         <scroll-view scroll-x class="book-list">
@@ -68,26 +75,12 @@
         <button @click="handleLogin" class="login-btn">立即登录</button>
       </view>
     </view>
-
-    <!-- 底部TabBar -->
-    <!--    <view class="tabbar">
-      <navigator url="/pages/index/index" hover-class="navigator-hover" @click="switchTab('/pages/index/index')">
-        <text>首页</text>
-      </navigator>
-      <navigator url="/pages/Illustrated/Illustrated" hover-class="navigator-hover" @click="switchTab('/pages/Illustrated/Illustrated')">
-        <text>分类</text>
-      </navigator>
-      <navigator url="/pages/user/user" hover-class="navigator-hover" @click="switchTab('/pages/user/user')">
-        <text>我的</text>
-      </navigator>
-    </view> -->
   </view>
 </template>
 
 <script setup>
 import { onMounted, ref } from 'vue';
 import { Get_Swiper, Get_All_Books, Get_AI_Recommendations } from '@/api';
-// import { uni } from '@dcloudio/uni-app';
 
 let searchText = ref('');
 
@@ -176,7 +169,7 @@ async function get_ai_recommendations() {
     }
   } catch (error) {
     console.error('Error fetching AI recommendations:', error);
-    // 如果是超时错误，不显示错误提示，只在控制台记录
+    // 如果是超时错误,不显示错误提示,只在控制台记录
     if (error.errMsg && !error.errMsg.includes('timeout')) {
       uni.showToast({
         title: '获取AI推荐失败',
@@ -215,130 +208,181 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.container {
-  padding-top: 20upx;
-  background-color: #f5f5f5;
+/* AI生成按钮 */
+.ai-gen-btn {
+  position: fixed;
+  top: 20upx;
+  right: 20upx;
+  z-index: 999;
+  padding: 12upx 24upx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 30upx;
+  font-size: 24upx;
+  font-weight: 600;
+  box-shadow: 0 4upx 12upx rgba(102, 126, 234, 0.4);
 }
 
+.container {
+  padding-top: 20upx;
+  background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
+  min-height: 100vh;
+}
+
+/* 搜索框 */
 .search-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 20upx;
-  padding: 10upx 20upx;
-  background-color: #fff;
-  border-radius: 20upx;
-  box-shadow: 0 2upx 10upx rgba(0, 0, 0, 0.1);
+  padding: 8upx;
+  background: #ffffff;
+  border-radius: 30upx;
+  box-shadow: 0 4upx 16upx rgba(0, 0, 0, 0.08);
 }
 
 .search-input {
   flex: 1;
   height: 60upx;
-  padding-left: 20upx;
+  padding-left: 30upx;
   font-size: 28upx;
   color: #333;
-  background-color: #f0f0f0;
+  background-color: transparent;
   border: none;
-  border-radius: 20upx;
 }
 
 .search-btn {
-  padding: 0 30upx;
-  font-size: 28upx;
-  color: #fff;
-  background-color: #007AFF;
-  border-radius: 20upx;
-  margin-left: 20upx;
+  width: 60upx;
+  height: 60upx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  box-shadow: 0 4upx 8upx rgba(102, 126, 234, 0.3);
 }
 
+/* 轮播图 */
 .swiper-box {
-  height: 300upx;
-  overflow: hidden;
+  height: 320upx;
   margin: 20upx;
-  border-radius: 10upx;
-  box-shadow: 0 2upx 10upx rgba(0, 0, 0, 0.1);
+  border-radius: 20upx;
+  overflow: hidden;
+  box-shadow: 0 8upx 24upx rgba(0, 0, 0, 0.12);
 }
 
 .swiper-img {
   width: 100%;
   height: 100%;
-  border-radius: 10upx;
+  border-radius: 20upx;
 }
 
-.genre-list {
+/* 分类和推荐区域 */
+.genre-list,
+.recommend-section {
   margin: 20upx;
-  padding: 20upx;
-  background-color: #fff;
-  border-radius: 10upx;
-  box-shadow: 0 2upx 10upx rgba(0, 0, 0, 0.1);
+  padding: 24upx;
+  background: #ffffff;
+  border-radius: 20upx;
+  box-shadow: 0 4upx 16upx rgba(0, 0, 0, 0.08);
 }
 
 .section-title {
-  font-size: 36upx;
+  font-size: 32upx;
+  font-weight: 700;
   color: #333;
   margin-bottom: 20upx;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
-.ai-recommend .section-title {
-  color: #ff6b6b;
+.section-title text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* AI推荐特殊样式 */
+.ai-recommend {
+  background: linear-gradient(135deg, #fff9f0 0%, #ffffff 100%);
+  border: 2upx solid rgba(102, 126, 234, 0.2);
+}
+
+.ai-recommend .section-title text {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .no-recommendations {
-  padding: 40upx;
+  padding: 60upx 40upx;
   text-align: center;
   color: #999;
   font-size: 28upx;
 }
 
 .login-btn {
-  margin-top: 20upx;
-  background-color: #ff6b6b;
+  margin-top: 24upx;
+  padding: 16upx 48upx;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
   border: none;
-  padding: 10upx 30upx;
-  border-radius: 20upx;
-  font-size: 24upx;
+  border-radius: 30upx;
+  font-size: 28upx;
+  font-weight: 600;
+  box-shadow: 0 4upx 12upx rgba(245, 87, 108, 0.3);
 }
 
+/* 标签列表 */
 .tag-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  gap: 16upx;
   margin-top: 20upx;
 }
 
 .tag-item {
-  width: 100upx;
-  height: 100upx;
-  line-height: 100upx;
-  display: inline-block;
-  padding: 10upx 20upx;
-  margin: 10upx;
-  background-color: #e0e0e0;
-  border-radius: 20upx;
-  cursor: pointer;
-  text-align: center;
+  flex: 1;
+  min-width: 140upx;
+  height: 80upx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  border-radius: 16upx;
+  border: 2upx solid rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+}
+
+.tag-item:active {
+  transform: scale(0.95);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.tag-item:active text {
+  color: #ffffff;
 }
 
 .tag-item text {
-  font-size: 24upx;
-  color: #666;
+  font-size: 26upx;
+  font-weight: 600;
+  color: #667eea;
 }
 
-.recommend-section {
-  margin: 20upx;
-  padding: 20upx;
-  background-color: #fff;
-  border-radius: 10upx;
-  box-shadow: 0 2upx 10upx rgba(0, 0, 0, 0.1);
-}
-
+/* 书籍列表 */
 .book-list {
   white-space: nowrap;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.book-list::-webkit-scrollbar {
+  display: none;
 }
 
 .book-item {
@@ -346,42 +390,32 @@ onMounted(() => {
   width: 200upx;
   margin-right: 20upx;
   text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.book-item:active {
+  transform: translateY(-8upx);
 }
 
 .book-image {
   width: 180upx;
   height: 270upx;
-  border-radius: 10upx;
+  border-radius: 16upx;
+  box-shadow: 0 8upx 16upx rgba(0, 0, 0, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.book-item:active .book-image {
+  box-shadow: 0 12upx 24upx rgba(0, 0, 0, 0.2);
 }
 
 .book-name {
-  font-size: 28upx;
+  font-size: 26upx;
+  font-weight: 600;
   color: #333;
-  margin-top: 10upx;
-}
-
-.tabbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100upx;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #fff;
-  box-shadow: 0 -2upx 10upx rgba(0, 0, 0, 0.1);
-  z-index: 999;
-}
-
-.tabbar navigator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.tabbar navigator text {
-  font-size: 24upx;
-  color: #666;
+  margin-top: 12upx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 </style>

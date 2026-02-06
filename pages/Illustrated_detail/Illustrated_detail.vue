@@ -95,7 +95,7 @@
 	//浮窗展示
 	const showOverlay = ref(false);
 	const selectedWorldview = ref({});
-
+	
 	//人物关系展示
 	const show_relational = ref(false);
 	
@@ -344,94 +344,162 @@
 </script>
 
 <style scoped>
-
-	.all_btn{
+	/* 按钮容器 */
+	.all_btn {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-around;
-		margin-bottom: 10px;
+		gap: 16px;
+		margin-bottom: 20px;
+		padding: 0 12px;
 	}
 	
-	.relational_btn{
-		width: 100px;
-		height: 120px;
-		button{
-			display: flex;
-			align-items: center;
-			height: 100%;
-			background-color: aquamarine;
-		}
-	}
-	.timeline_btn{
-		width: 100px;
-		height: 120px;
-		button{
-			display: flex;
-			align-items: center;
-			height: 100%;
-			background-color: pink;
-		}
-	}
-	.science_btn{
-		width: 100px;
-		height: 120px;
-		button{
-			display: flex;
-			align-items: center;
-			height: 100%;
-			background-color: skyblue;
-		}
-	}
-	.discussion_btn{
-		width: 100px;
-		height: 120px;
-		button{
-			display: flex;
-			align-items: center;
-			height: 100%;
-			background-color: darkorchid;
-		}
+	/* 按钮基础样式 */
+	.relational_btn,
+	.timeline_btn,
+	.science_btn,
+	.discussion_btn {
+		flex: 1;
+		min-width: 150px;
+		max-width: 180px;
+		height: 140px;
 	}
 	
+	.relational_btn button,
+	.timeline_btn button,
+	.science_btn button,
+	.discussion_btn button {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 12px;
+		width: 100%;
+		height: 100%;
+		border: none;
+		border-radius: 16px;
+		font-size: 15px;
+		font-weight: 600;
+		color: #ffffff;
+		box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		position: relative;
+		overflow: hidden;
+	}
 	
+	/* 按钮悬停效果 */
+	.relational_btn button:active,
+	.timeline_btn button:active,
+	.science_btn button:active,
+	.discussion_btn button:active {
+		transform: translateY(-4px);
+		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+	}
+	
+	/* 人物关系网按钮 - 紫蓝渐变 */
+	.relational_btn button {
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	}
+	
+	.relational_btn button::before {
+		content: '👥';
+		font-size: 32px;
+	}
+	
+	/* 时间线按钮 - 粉橙渐变 */
+	.timeline_btn button {
+		background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+	}
+	
+	.timeline_btn button::before {
+		content: '⏱️';
+		font-size: 32px;
+	}
+	
+	/* 科技水平按钮 - 蓝绿渐变 */
+	.science_btn button {
+		background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	}
+	
+	.science_btn button::before {
+		content: '🚀';
+		font-size: 32px;
+	}
+	
+	/* 评论区按钮 - 紫粉渐变 */
+	.discussion_btn button {
+		background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+	}
+	
+	.discussion_btn button::before {
+		content: '💬';
+		font-size: 32px;
+	}
+
+	/* 页面容器 */
 	.page-container {
 		display: flex;
 		flex-direction: column;
-		height: 100vh;
-		background-color: #f8f9fa;
+		min-height: 100vh;
+		background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
 		position: relative;
 	}
 
+	/* 头部 */
 	.header {
-		padding: 24px;
-		background-color: #ffffff;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		border-bottom: 1px solid #e9ecef;
+		padding: 28px 24px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.header::before {
+		content: '';
+		position: absolute;
+		top: -50%;
+		right: -10%;
+		width: 200px;
+		height: 200px;
+		background: rgba(255, 255, 255, 0.1);
+		border-radius: 50%;
 	}
 
 	.title {
-		font-size: 28px;
-		font-weight: bold;
-		color: #343a40;
+		font-size: 26px;
+		font-weight: 700;
+		color: #ffffff;
 		text-align: center;
+		letter-spacing: 0.5px;
+		text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		position: relative;
+		z-index: 1;
 	}
 
+	/* 内容区域 */
 	.content {
-		height: 100%;
 		flex-grow: 1;
 		overflow-y: auto;
-		padding: 24px;
+		padding: 20px 16px;
 	}
 
+	/* 图表和时间线容器 */
 	.chart-wrapper,
 	.timeline-section,
 	.description-section {
 		position: relative;
-		background-color: #ffffff;
-		margin-bottom: 24px;
+		background: #ffffff;
+		margin-bottom: 20px;
 		padding: 24px;
-		border-radius: 8px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		border-radius: 20px;
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+	
+	.chart-wrapper:active,
+	.timeline-section:active {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 	}
 
 	.timeline-wrapper {
@@ -440,127 +508,189 @@
 		touch-action: none;
 	}
 
+	/* 章节标题 */
 	.section-title {
-		font-size: 22px;
-		font-weight: bold;
-		color: #343a40;
+		font-size: 20px;
+		font-weight: 700;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 		margin-bottom: 16px;
 	}
 
+	/* 世界观容器 */
 	.worldviews-container {
 		display: flex;
 		flex-direction: row;
 		white-space: nowrap;
 		overflow-x: auto;
+		padding-bottom: 8px;
+		-webkit-overflow-scrolling: touch;
+	}
+	
+	.worldviews-container::-webkit-scrollbar {
+		height: 6px;
+	}
+	
+	.worldviews-container::-webkit-scrollbar-thumb {
+		background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+		border-radius: 3px;
 	}
 
+	/* 世界观卡片 */
 	.worldview-item {
 		display: inline-block;
 		flex-shrink: 0;
-		margin-right: 24px;
-		padding: 16px;
-		background-color: #ffffff;
-		border-radius: 8px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		width: 250px;
-		/* Adjust the width as needed */
+		margin-right: 16px;
+		padding: 20px;
+		background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+		border-radius: 16px;
+		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+		width: 260px;
+		border: 1px solid rgba(102, 126, 234, 0.1);
+		transition: all 0.3s ease;
+	}
+	
+	.worldview-item:active {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 	}
 
 	.worldview-title {
 		font-size: 18px;
-		font-weight: bold;
-		color: #343a40;
-		margin-bottom: 8px;
+		font-weight: 700;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		margin-bottom: 12px;
 	}
 
 	.worldview-content {
-		font-size: 16px;
-		color: #6c757d;
-		line-height: 1.6;
+		font-size: 14px;
+		color: #64748b;
+		line-height: 1.7;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
-		max-height: 54px;
-		/* Adjust based on line height and number of lines */
+		max-height: 63px;
 		transition: max-height 0.3s ease-in-out;
 	}
 
 	.worldview-content.collapsed {
 		-webkit-line-clamp: 3;
-		max-height: 54px;
-		/* Adjust based on line height and number of lines */
+		max-height: 63px;
 	}
 
+	/* 展开按钮 */
 	.expand-button {
-		margin-top: 8px;
-		padding: 8px 16px;
-		background-color: #007aff;
+		margin-top: 12px;
+		padding: 8px 20px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 		color: white;
 		border: none;
-		border-radius: 4px;
-		cursor: pointer;
+		border-radius: 20px;
+		font-size: 13px;
+		font-weight: 600;
+		box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+		transition: all 0.3s ease;
 	}
 
 	.expand-button:active {
-		background-color: #0056b3;
+		transform: scale(0.95);
+		box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
 	}
 
+	/* 遮罩层 */
 	.overlay {
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: rgba(0, 0, 0, 0.6);
+		backdrop-filter: blur(4px);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		z-index: 1000;
+		animation: fadeIn 0.3s ease;
+	}
+	
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 
+	/* 模态框 */
 	.modal {
-		background-color: #ffffff;
-		padding: 24px;
-		border-radius: 8px;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		width: 80%;
+		background: #ffffff;
+		padding: 28px;
+		border-radius: 24px;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+		width: 85%;
 		max-width: 600px;
+		max-height: 80vh;
+		overflow-y: auto;
+		animation: slideUp 0.3s ease;
+	}
+	
+	@keyframes slideUp {
+		from {
+			transform: translateY(50px);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
 	}
 
 	.modal-header {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		margin-bottom: 16px;
+		margin-bottom: 20px;
+		padding-bottom: 16px;
+		border-bottom: 2px solid #f1f5f9;
 	}
 
 	.modal-title {
-		font-size: 24px;
-		font-weight: bold;
-		color: #343a40;
+		font-size: 22px;
+		font-weight: 700;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 	}
 
+	/* 关闭按钮 */
 	.close-button {
 		padding: 8px 16px;
-		background-color: #dc3545;
+		background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 		color: white;
 		border: none;
-		border-radius: 4px;
-		cursor: pointer;
+		border-radius: 20px;
+		font-weight: 600;
+		box-shadow: 0 4px 8px rgba(245, 87, 108, 0.3);
+		transition: all 0.3s ease;
 	}
 
 	.close-button:active {
-		background-color: #c82333;
+		transform: scale(0.95);
+		box-shadow: 0 2px 4px rgba(245, 87, 108, 0.3);
 	}
 
 	.modal-body {
-		font-size: 16px;
-		color: #6c757d;
-		line-height: 1.6;
+		font-size: 15px;
+		color: #475569;
+		line-height: 1.8;
 	}
 </style>
-
-
-

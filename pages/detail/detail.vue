@@ -484,30 +484,10 @@ onLoad((options) => {
 .container {
 	padding: 20px;
 	font-family: 'Helvetica Neue', Arial, sans-serif;
-	background-color: #f4f4f4;
+	background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
 	min-height: 100vh;
 	box-sizing: border-box;
 	color: #333;
-}
-
-/* 返回按钮（隐藏的） */
-.back-button .custom-button {
-	background-color: #4CAF50;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	text-align: center;
-	text-decoration: none;
-	display: inline-block;
-	font-size: 16px;
-	margin: 4px 2px;
-	cursor: pointer;
-	border-radius: 8px;
-	transition: background-color 0.3s ease;
-}
-
-.back-button .custom-button:hover {
-	background-color: #45a049;
 }
 
 /* 书籍详细信息部分 */
@@ -515,38 +495,44 @@ onLoad((options) => {
 	display: flex;
 	align-items: center;
 	margin-bottom: 30px;
-	background-color: #ffffff;
-	padding: 20px;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	background: #ffffff;
+	padding: 24px;
+	border-radius: 20px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+	position: relative;
 }
 
 .book-cover image {
 	width: 120px;
 	height: 200px;
 	object-fit: cover;
-	border-radius: 8px;
+	border-radius: 16px;
 	margin-right: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
 }
 
 .book-info {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: 100%;
+	flex: 1;
 }
 
 .book-title {
 	font-size: 28px;
-	font-weight: bold;
-	color: #333;
+	font-weight: 700;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	margin-bottom: 8px;
 }
 
 .author,
 .topic {
 	font-size: 16px;
 	color: #666;
+	margin: 4px 0;
 }
 
 .rating {
@@ -554,59 +540,75 @@ onLoad((options) => {
 	align-items: center;
 	font-size: 16px;
 	color: #666;
+	margin: 8px 0;
 }
 
+/* 收藏按钮 */
 .favorite-button .custom-button {
-	background-color: #ff6b6b;
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 	color: white;
 	border: none;
-	padding: 10px 20px;
+	padding: 12px 24px;
 	font-size: 16px;
-	margin-top: 10px;
-	border-radius: 8px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	font-weight: 600;
+	margin-top: 12px;
+	border-radius: 30px;
+	box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+	transition: all 0.3s ease;
 }
 
 .favorite-button .custom-button.favorited {
-	background-color: #007bff;
+	background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
 }
 
-.favorite-button .custom-button:hover {
-	background-color: #f55858;
+.favorite-button .custom-button:active {
+	transform: scale(0.95);
 }
 
 /* 书籍简介、作者简介部分 */
 .book-description,
 .author-biography {
 	margin-bottom: 20px;
-	background-color: white;
-	padding: 15px;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	background: white;
+	padding: 24px;
+	border-radius: 20px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .expand-link {
-	color: #e74c3c;
+	color: #667eea;
 	font-size: 16px;
+	font-weight: 600;
 	text-decoration: none;
+	margin-left: 8px;
 }
 
 h2 {
 	font-size: 22px;
-	margin-bottom: 10px;
-	color: #333;
+	font-weight: 700;
+	margin-bottom: 16px;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
 }
 
 h3 {
 	font-size: 20px;
+	font-weight: 700;
 	margin-top: 20px;
-	margin-bottom: 10px;
-	color: #ff6b6b;
+	margin-bottom: 12px;
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
 	display: flex;
 	align-items: center;
+	gap: 8px;
 }
 
+/* AI功能区域 */
 .ai-summary-section {
 	margin-top: 20px;
 	display: flex;
@@ -614,35 +616,38 @@ h3 {
 }
 
 .ai-button {
-	background-color: #ff6b6b;
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
 	color: white;
 	border: none;
-	padding: 10px 20px;
+	padding: 14px 28px;
 	font-size: 16px;
-	border-radius: 8px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	font-weight: 600;
+	border-radius: 30px;
+	box-shadow: 0 4px 12px rgba(245, 87, 108, 0.3);
+	transition: all 0.3s ease;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
 }
 
-.ai-button:hover {
-	background-color: #f55858;
+.ai-button:active {
+	transform: scale(0.95);
 }
 
 .ai-button:disabled {
-	background-color: #cccccc;
+	background: linear-gradient(135deg, #cccccc 0%, #999999 100%);
+	box-shadow: none;
 	cursor: not-allowed;
 }
 
 .ai-summary {
 	margin-top: 20px;
-	padding: 15px;
-	background-color: #fff9f0;
-	border-left: 4px solid #ff6b6b;
-	border-radius: 8px;
+	padding: 20px;
+	background: linear-gradient(135deg, #fff9f0 0%, #ffffff 100%);
+	border-left: 4px solid #f093fb;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(240, 147, 251, 0.15);
 }
 
 .ai-summary p {
@@ -666,72 +671,86 @@ p {
 }
 
 .review-item {
-	background-color: white;
-	padding: 15px;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	margin-bottom: 15px;
+	background: white;
+	padding: 20px;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	margin-bottom: 16px;
 	font-size: 16px;
 	color: #555;
+	transition: all 0.3s ease;
 }
 
-/* 分享按钮 */
-.share-button {
-	background-color: #3498db;
-	color: white;
-	padding: 12px 20px;
-	border: none;
-	font-size: 16px;
-	border-radius: 8px;
-	width: 100%;
-	margin-top: 20px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+.review-item:active {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-.share-button:hover {
-	background-color: #2980b9;
-}
-
-
-
+/* 发表评论 */
 .add-comment {
 	margin-bottom: 20px;
-	background-color: white;
-	padding: 15px;
-	border-radius: 8px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	background: white;
+	padding: 24px;
+	border-radius: 20px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .add-comment h2 {
 	font-size: 22px;
-	margin-bottom: 10px;
-	color: #333;
+	margin-bottom: 16px;
 }
 
 .add-comment textarea {
 	width: 100%;
-	height: 100px;
-	padding: 10px;
+	height: 120px;
+	padding: 16px;
 	font-size: 16px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
+	border: 2px solid #e2e8f0;
+	border-radius: 16px;
 	resize: none;
-	margin-bottom: 10px;
+	margin-bottom: 16px;
+	transition: border-color 0.3s ease;
+	box-sizing: border-box;
 }
 
+.add-comment textarea:focus {
+	border-color: #667eea;
+	outline: none;
+}
+
+/* 提交评论按钮 */
 .submit-comment {
-	background-color: #3498db;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 	color: white;
-	padding: 10px 20px;
+	padding: 14px 28px;
 	border: none;
 	font-size: 16px;
-	border-radius: 8px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	font-weight: 600;
+	border-radius: 30px;
+	box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+	transition: all 0.3s ease;
 }
 
-.submit-comment:hover {
-	background-color: #2980b9;
+.submit-comment:active {
+	transform: scale(0.95);
+}
+
+/* 分享按钮 */
+.share-button {
+	background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+	color: white;
+	padding: 14px 28px;
+	border: none;
+	font-size: 16px;
+	font-weight: 600;
+	border-radius: 30px;
+	width: 100%;
+	margin-top: 20px;
+	box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+	transition: all 0.3s ease;
+}
+
+.share-button:active {
+	transform: scale(0.98);
 }
 </style>

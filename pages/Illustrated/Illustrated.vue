@@ -7,7 +7,7 @@
     <view class="search-bar">
       <input type="text" placeholder="搜索图鉴" v-model="TuText" class="search-input" />
       <button @click="searchTu" class="search-btn">
-        <uni-icons type="search" size="20" style="color: aliceblue;"></uni-icons>
+        <uni-icons type="search" size="20" color="#ffffff"></uni-icons>
       </button>
     </view>
     <scroll-view class="scroll-view" scroll-y>
@@ -16,7 +16,7 @@
           <image :src="item.Illustrated_Img" mode="aspectFill" class="item-image"></image>
           <view class="content">
             <text class="name">{{ item.Book_Name }}</text>
-            <button @click="showDetails(item)" class="details-btn">详情</button>
+            <button @click="showDetails(item)" class="details-btn">查看详情</button>
           </view>
         </view>
       </transition-group>
@@ -75,124 +75,163 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap'); */
-
 .container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  background-color: #f0f2f5;
-  font-family: 'Roboto', sans-serif;
+  height: 100vh;
+  background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
 }
 
+/* 头部 */
+.header {
+  padding: 32upx 24upx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4upx 20upx rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 200upx;
+  height: 200upx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+.title {
+  font-size: 40upx;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2upx 4upx rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.subtitle {
+  font-size: 24upx;
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: 8upx;
+  position: relative;
+  z-index: 1;
+}
+
+/* 搜索框 */
 .search-bar {
   display: flex;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px;
+  padding: 20upx;
+  background-color: transparent;
 }
 
 .search-input {
   flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  font-size: 16px;
-  margin-right: 10px;
+  height: 70upx;
+  padding: 0 30upx;
+  border: none;
+  background-color: #ffffff;
+  border-radius: 35upx;
+  font-size: 28upx;
+  color: #333;
+  margin-right: 16upx;
+  box-shadow: 0 4upx 16upx rgba(0, 0, 0, 0.08);
 }
 
 .search-btn {
-  padding: 10px 20px;
+  width: 70upx;
+  height: 70upx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
-  background-color: #1e90ff;
-  color: white;
-  border-radius: 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  padding: 0;
+  box-shadow: 0 4upx 12upx rgba(102, 126, 234, 0.4);
+  transition: all 0.3s ease;
 }
 
-.search-btn:hover {
-  background-color: #1c86ee;
+.search-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2upx 8upx rgba(102, 126, 234, 0.4);
 }
 
-.header {
-  padding: 20px;
-  background-color: #fff;
-}
-
-.title {
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-}
-
-.subtitle {
-  font-size: 18px;
-  color: #666;
-  margin-top: 5px;
-}
-
+/* 滚动视图 */
 .scroll-view {
   flex: 1;
   overflow-y: auto;
-  background-color: #f0f2f5;
+  padding: 0 20upx 20upx;
 }
 
+/* 图鉴卡片 */
 .item {
-  margin: 20px;
-  background-color: #fff;
-  border-radius: 15px;
+  margin-bottom: 24upx;
+  background: #ffffff;
+  border-radius: 20upx;
   overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 4upx 16upx rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.item:hover {
-  transform: translateY(-5px);
+.item:active {
+  transform: translateY(-4upx);
+  box-shadow: 0 8upx 24upx rgba(0, 0, 0, 0.12);
 }
 
 .item-image {
   width: 100%;
-  height: 200px;
+  height: 360upx;
   object-fit: cover;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
 }
 
 .content {
-  padding: 15px;
+  padding: 24upx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .name {
-  font-size: 20px;
-  font-weight: bold;
+  flex: 1;
+  font-size: 32upx;
+  font-weight: 700;
   color: #333;
-  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-right: 16upx;
 }
 
 .details-btn {
-  padding: 10px 20px;
+  padding: 16upx 32upx;
   border: none;
-  background-color: #4caf50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  border-radius: 20px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  border-radius: 30upx;
+  font-size: 26upx;
+  font-weight: 600;
+  box-shadow: 0 4upx 12upx rgba(102, 126, 234, 0.3);
+  transition: all 0.3s ease;
 }
 
-.details-btn:hover {
-  background-color: #45a049;
+.details-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 2upx 8upx rgba(102, 126, 234, 0.3);
 }
 
 /* 过渡效果 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.5s;
+  transition: all 0.5s ease;
 }
-.fade-enter,
+
+.fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+  transform: translateY(20upx);
 }
 </style>

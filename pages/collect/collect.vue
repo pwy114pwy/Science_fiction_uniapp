@@ -4,7 +4,9 @@
 			<text>加载中...</text>
 		</view>
 		<view v-else-if="collections.length === 0" class="empty">
-			<text>暂无收藏记录</text>
+			<view class="empty-icon">📚</view>
+			<text class="empty-text">暂无收藏记录</text>
+			<text class="empty-hint">快去收藏喜欢的小说吧</text>
 		</view>
 		<view v-else class="collections">
 			<view class="collection-list">
@@ -13,11 +15,11 @@
 						<image :src="item.Img_Url" class="cover-image"></image>
 					</view>
 					<view class="info">
-						<p> <text class="book-name">{{ item.Book_Name }}</text></p>
+						<text class="book-name">{{ item.Book_Name }}</text>
 						<text class="collect-time">{{ item.Collect_Time }}</text>
 					</view>
 					<view class="action">
-						<button @click="removeFromCollection(item.Book_ID)" class="remove-btn">取消</button>
+						<button @click="removeFromCollection(item.Book_ID)" class="remove-btn">取消收藏</button>
 					</view>
 				</view>
 			</view>
@@ -26,164 +28,186 @@
 </template>
 
 <script setup>
-	import { GET_USER_COLLECT_BOOK, UNCOLLECT_BOOK } from '@/api'; 
-	import {
-		ref,
-		onMounted
-	} from 'vue';
+import { GET_USER_COLLECT_BOOK, UNCOLLECT_BOOK } from '@/api';
+import {
+	ref,
+	onMounted
+} from 'vue';
 
-	const loading = ref(true);
-	const collections = ref([]);
-	const user = JSON.parse(uni.getStorageSync('userInfo'));
+const loading = ref(true);
+const collections = ref([]);
+const user = JSON.parse(uni.getStorageSync('userInfo'));
 
-	const fetchCollections = async () => {
-		try {
-			const response = await uni.request({
-				url: GET_USER_COLLECT_BOOK,
-				method: 'POST',
-				data: {
-					User_Name: user.username,
-				}
-			});
-			collections.value = response.data;
-		} catch (error) {
-			uni.showToast({
-				title: '加载失败，请稍后再试',
-				icon: 'none'
-			});
-		} finally {
-			loading.value = false;
-		}
-	};
-
-	const viewItem = (id) => {
-		// 这里可以根据id导航到详细页面
-		uni.navigateTo({
-			url: `/pages/detail/detail?id=${id}`
-		});
-	};
-
-	const removeFromCollection = async (bookId) => {
-		try {
-			const response = await uni.request({
-				url: UNCOLLECT_BOOK,
-				method: 'POST',
-				data: {
-					User_Name: user.username,
-					Book_ID: bookId
-				}
-			});
-			console.log(response);
-			if (response.statusCode == 200) {
-				uni.showToast({
-					title: '取消收藏成功',
-					icon: 'success'
-				});
-				// 更新本地数据
-				collections.value = collections.value.filter(item => item.Book_ID !== bookId);
-			} else {
-				uni.showToast({
-					title: '取消收藏失败，请稍后再试',
-					icon: 'none'
-				});
+const fetchCollections = async () => {
+	try {
+		const response = await uni.request({
+			url: GET_USER_COLLECT_BOOK,
+			method: 'POST',
+			data: {
+				User_Name: user.username,
 			}
-		} catch (error) {
+		});
+		collections.value = response.data;
+	} catch (error) {
+		uni.showToast({
+			title: '加载失败,请稍后再试',
+			icon: 'none'
+		});
+	} finally {
+		loading.value = false;
+	}
+};
+
+const viewItem = (id) => {
+	uni.navigateTo({
+		url: `/pages/detail/detail?id=${id}`
+	});
+};
+
+const removeFromCollection = async (bookId) => {
+	try {
+		const response = await uni.request({
+			url: UNCOLLECT_BOOK,
+			method: 'POST',
+			data: {
+				User_Name: user.username,
+				Book_ID: bookId
+			}
+		});
+		console.log(response);
+		if (response.statusCode == 200) {
 			uni.showToast({
-				title: '网络请求失败，请检查您的网络连接',
+				title: '取消收藏成功',
+				icon: 'success'
+			});
+			collections.value = collections.value.filter(item => item.Book_ID !== bookId);
+		} else {
+			uni.showToast({
+				title: '取消收藏失败',
 				icon: 'none'
 			});
 		}
-	};
+	} catch (error) {
+		uni.showToast({
+			title: '网络请求失败',
+			icon: 'none'
+		});
+	}
+};
 
-	onMounted(() => {
-		fetchCollections();
-	});
+onMounted(() => {
+	fetchCollections();
+});
 </script>
 
 <style scoped>
-	.collect-page {
-		padding: 20px;
-		background-color: #f5f5f5;
-		font-family: 'Arial', sans-serif;
-	}
+.collect-page {
+	min-height: 100vh;
+	padding: 20px;
+	background: linear-gradient(180deg, #f0f4f8 0%, #e2e8f0 100%);
+}
 
-	.loading,
-	.empty {
-		text-align: center;
-		padding: 20px;
-		color: #999;
-		font-size: 16px;
-	}
+.loading,
+.empty {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 80px 20px;
+	text-align: center;
+}
 
-	.collection-list {
-		display: flex;
-		flex-direction: column;
-		gap: 20px;
-	}
+.empty-icon {
+	font-size: 80px;
+	margin-bottom: 20px;
+	opacity: 0.5;
+}
 
-	.collection-item {
-		display: flex;
-		align-items: center;
-		background-color: #fff;
-		padding: 15px;
-		border-radius: 10px;
-		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-		transition: transform 0.2s;
-	}
+.empty-text {
+	font-size: 18px;
+	font-weight: 600;
+	color: #666;
+	margin-bottom: 8px;
+}
 
-	.collection-item:hover {
-		transform: translateY(-5px);
-	}
+.empty-hint {
+	font-size: 14px;
+	color: #999;
+}
 
-	.cover {
-		flex: 1;
-		cursor: pointer;
-	}
+.collection-list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
 
-	.cover-image {
-		width: 60px;
-		height: 90px;
-		border-radius: 5px;
-		object-fit: cover;
-	}
+.collection-item {
+	display: flex;
+	align-items: center;
+	background: #ffffff;
+	padding: 16px;
+	border-radius: 16px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+}
 
-	.info {
-		flex: 2;
-		padding-left: 10px;
-	}
+.collection-item:active {
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
 
-	.book-name {
-		font-size: 18px;
-		color: #333;
-		font-weight: bold;
-		margin: 0;
-	}
+.cover {
+	flex-shrink: 0;
+	cursor: pointer;
+}
 
-	.collect-time {
-		font-size: 14px;
-		color: #666;
-		margin-top: 5px;
-	}
+.cover-image {
+	width: 70px;
+	height: 105px;
+	border-radius: 12px;
+	object-fit: cover;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-	.action {
-		flex: 1;
-		text-align: right;
-	}
+.info {
+	flex: 1;
+	padding: 0 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
 
-	.remove-btn {
-		background-color: #ff4d4f;
-		color: white;
-		border: none;
-		padding: 8px 15px;
-		border-radius: 5px;
-		cursor: pointer;
-		font-size: 14px;
-		transition: background-color 0.3s;
-		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-	}
+.book-name {
+	font-size: 16px;
+	font-weight: 600;
+	color: #333;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
 
-	.remove-btn:hover {
-		background-color: #e53935;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	}
+.collect-time {
+	font-size: 13px;
+	color: #999;
+}
+
+.action {
+	flex-shrink: 0;
+}
+
+.remove-btn {
+	padding: 10px 20px;
+	background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+	color: white;
+	border: none;
+	border-radius: 20px;
+	font-size: 14px;
+	font-weight: 600;
+	box-shadow: 0 4px 8px rgba(245, 87, 108, 0.3);
+	transition: all 0.3s ease;
+}
+
+.remove-btn:active {
+	transform: scale(0.95);
+}
 </style>
